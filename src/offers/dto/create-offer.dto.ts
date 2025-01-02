@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsEmail, IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateOfferDto {
   @IsNotEmpty()
@@ -10,16 +10,38 @@ export class CreateOfferDto {
   description: string;
 
   @IsNotEmpty()
-  @IsString()
-  slayer: string;
+  @IsNumber()
+  salary: number;
 
   @IsArray()
   @IsString({ each: true })
   competences: string[];
 
+  @IsNotEmpty()
+  @IsString()
+  contract: string;
 
+  @IsNotEmpty()
+  @IsString()
+  localisation: string;
+
+  @IsNotEmpty()
+  @IsString()
+  companyName: string;
+
+  @IsOptional()
+  @IsEmail()
+  contactEmail?: string;
 
   @IsOptional()
   @IsString()
-  creator?: string;
+  contactPhone?: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsMongoId()
+  RH: string
+
+
+
 }

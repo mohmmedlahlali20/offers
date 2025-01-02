@@ -1,22 +1,25 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { OffersService } from './offers.service';
 import { CreateOfferDto } from './dto/create-offer.dto';
 import { UpdateOfferDto } from './dto/update-offer.dto';
 
 @Controller('offers')
 export class OffersController {
-  constructor(private readonly offersService: OffersService) {}
+  constructor(private readonly offersService: OffersService) { }
 
   @Post()
   create(@Body() createOfferDto: CreateOfferDto) {
-   console.log(createOfferDto);
-   
     return this.offersService.createOffer(createOfferDto);
   }
 
   @Get()
   findAll() {
     return this.offersService.getAllOffers();
+  }
+
+  @Get('search')
+  async searchOffers(@Query('q') query: string) {
+    return this.offersService.searching(query);
   }
 
   @Get(':id')
